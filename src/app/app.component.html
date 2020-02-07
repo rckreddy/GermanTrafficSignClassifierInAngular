@@ -1,0 +1,24 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+</div>
+<div class="cont d-flex justify-content-center align-items-center flex-column">
+
+  <div class="custom-file">
+    <input type="file" class="custom-file-input" (change)="fileChangeEvent($event)">
+  </div>
+
+  <img [src]="imageSrc" #img *ngIf="imageSrc"/>
+
+  <div class="list-group">
+    <div class="list-group-item" *ngIf="prediction">
+      This is a "{{ prediction.signName }}" sign
+    </div>
+  </div>
+
+</div>
+
+
+<router-outlet></router-outlet>
