@@ -9,7 +9,7 @@ import * as tf from '@tensorflow/tfjs';
 export class AppComponent implements OnInit {
   title = 'German Traffic Sign Classifier In Angular';
   imageSrc: string;
-  @ViewChild('img') imageEl: ElementRef;
+  @ViewChild('img', { static: false }) imageEl: ElementRef;
   predictions: any;
   model: any;
   loading = true;
@@ -73,8 +73,14 @@ export class AppComponent implements OnInit {
 
       reader.onload = (res: any) => {
         this.imageSrc = res.target.result;
+
+        let imgEl = new Image();
+        imgEl.src = this.imageSrc;
+        imgEl.width = 32;
+        imgEl.height = 32;
+
         setTimeout(async () => {
-          const imgEl = this.imageEl.nativeElement;
+          //const imgEl = this.imageEl.nativeElement;
           var temp = await this.model.predict(tf.browser.fromPixels(imgEl).expandDims());
           this.predictions = temp.dataSync();
           this.prediction = this.modelClasses.find(mc => mc.id == this.predictions.findIndex((p: number) => p == 1));
